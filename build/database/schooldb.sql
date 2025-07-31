@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2021 at 04:24 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Jul 31, 2025 at 07:37 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ismailqemali`
+-- Database: `schooldb`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE `attendance` (
   `attendance` varchar(15) DEFAULT 'N',
   `global_name_id` int(10) NOT NULL,
   `teacher_email` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `attendance`
@@ -54,7 +54,7 @@ INSERT INTO `attendance` (`id`, `dates`, `student_id`, `attendance`, `global_nam
 CREATE TABLE `class` (
   `id` int(3) NOT NULL,
   `class` int(3) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `class`
@@ -76,7 +76,7 @@ INSERT INTO `class` (`id`, `class`) VALUES
 CREATE TABLE `classtime` (
   `id` int(11) NOT NULL,
   `class_time` varchar(40) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `classtime`
@@ -104,7 +104,7 @@ CREATE TABLE `class_teacher` (
   `class_time` varchar(255) NOT NULL,
   `class_days` varchar(255) NOT NULL,
   `is_class_teacher` varchar(5) NOT NULL DEFAULT 'N'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `class_teacher`
@@ -118,6 +118,40 @@ INSERT INTO `class_teacher` (`id`, `global_name_id`, `teacher_email`, `subject_n
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `short_description` text DEFAULT NULL,
+  `course_overview` longtext DEFAULT NULL,
+  `instructor_name` varchar(255) DEFAULT NULL,
+  `instructor_position` varchar(255) DEFAULT NULL,
+  `hours_video` varchar(100) DEFAULT NULL,
+  `articles` varchar(100) DEFAULT NULL,
+  `downloadable_resources` varchar(100) DEFAULT NULL,
+  `full_lifetime_access` varchar(100) DEFAULT NULL,
+  `access_device` varchar(100) DEFAULT NULL,
+  `assignments` varchar(100) DEFAULT NULL,
+  `certificate` varchar(100) DEFAULT NULL,
+  `what_you_learn` longtext DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`id`, `title`, `short_description`, `course_overview`, `instructor_name`, `instructor_position`, `hours_video`, `articles`, `downloadable_resources`, `full_lifetime_access`, `access_device`, `assignments`, `certificate`, `what_you_learn`, `created_at`) VALUES
+(1, 'Web Development', 'Master front-end and back-end web technologies to build responsive and scalable websites from scratch.', '<p>This comprehensive web development course will teach you everything from the basics of HTML, CSS, and JavaScript to advanced back-end technologies like PHP and MySQL. Learn how to build interactive websites, work with APIs, and deploy your applications online. Whether you’re a beginner or looking to upskill, this course offers a complete journey from static pages to full-stack web apps.</p>', 'Saleem Qasim', 'Web Developer at Google', '52 hours videos', '75 articles', 'Downloadable resources', 'Full lifetime access', 'Access on laptop and mobile', 'Assignments', 'Certificate of completion', '<ul><li>Understand the core concepts of front-end and back-end development.</li><li>Create responsive layouts using Flexbox and Grid.</li><li>Develop interactive websites using JavaScript and DOM manipulation.</li><li>Build server-side logic with PHP.</li><li>Store and retrieve data using MySQL databases.</li></ul>', '2025-07-31 17:32:06'),
+(2, 'Game Development', 'Create immersive and interactive games using powerful engines like Unity and Unreal Engine.', '<p>This course will take you deep into the world of game development. From fundamental programming concepts in C# to building complex 3D environments, this course covers it all. Learn game physics, AI, animation, sound integration, and much more. You’ll complete projects that help build a portfolio ready for the gaming industry.</p>', 'Ayesha Farooq', 'Game Developer at Epic Games', '40 hours videos', '60 articles', 'Downloadable resources', 'Full lifetime access', 'Access on laptop and mobile', 'Assignments', 'Certificate of completion', '<ul><li>Build 2D and 3D games from scratch using Unity.</li><li>Learn game mechanics and physics implementation.</li><li>Apply artificial intelligence to create smart game characters.</li><li>Design and animate characters and game environments.</li><li>Deploy games to PC, web, or mobile devices.</li></ul>', '2025-07-31 17:32:17'),
+(3, 'Graphic Designing', 'Learn the art and science of visual communication using Adobe Photoshop, Illustrator, and more.', '<p>This course is designed to make you a professional graphic designer. You’ll start with design theory and move into hands-on projects using industry-standard tools like Adobe Illustrator and Photoshop. Topics include logo design, branding, social media design, packaging, and UI components. Perfect for freelancers and aspiring designers alike.</p>', 'Muhammad Zubair', 'Senior Designer at Canva', '45 hours videos', '80 articles', 'Downloadable resources', 'Full lifetime access', 'Access on laptop and mobile', 'Assignments', 'Certificate of completion', '<ul><li>Master Adobe Photoshop and Illustrator from scratch.</li><li>Understand color theory, typography, and layout design.</li><li>Create logos, flyers, posters, and branding material.</li><li>Design social media content and UI mockups.</li><li>Build a professional design portfolio.</li></ul>', '2025-07-31 17:32:27'),
+(4, 'Digital Marketing', 'Become a digital marketing expert in SEO, PPC, social media, email marketing, and analytics.', '<p>This course covers all aspects of digital marketing. From setting up a website to generating traffic and leads using SEO and paid campaigns, you’ll gain hands-on knowledge of tools like Google Analytics, Facebook Ads, Mailchimp, and more. You’ll also learn how to build brand awareness, write compelling ad copy, and optimize for conversions.</p>', 'Nimra Khan', 'Marketing Strategist at HubSpot', '38 hours videos', '65 articles', 'Downloadable resources', 'Full lifetime access', 'Access on laptop and mobile', 'Assignments', 'Certificate of completion', '<ul><li>Master search engine optimization and keyword strategy.</li><li>Run effective Google and Facebook ad campaigns.</li><li>Analyze and optimize marketing funnels.</li><li>Build email campaigns that convert.</li><li>Drive traffic using content and influencer marketing.</li></ul>', '2025-07-31 17:32:38');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `event`
 --
 
@@ -127,7 +161,7 @@ CREATE TABLE `event` (
   `event_desc` text DEFAULT NULL,
   `event_date` date NOT NULL,
   `event_image` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `event`
@@ -152,7 +186,7 @@ CREATE TABLE `grading_result` (
   `current_roll` int(4) NOT NULL,
   `student_class` int(3) NOT NULL,
   `section` varchar(4) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -164,7 +198,7 @@ CREATE TABLE `groups` (
   `id` int(5) NOT NULL,
   `class_id` int(5) NOT NULL,
   `group_name` varchar(60) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `groups`
@@ -185,7 +219,7 @@ CREATE TABLE `notice` (
   `notice_title` varchar(255) NOT NULL,
   `notice_desc` text NOT NULL,
   `notice_date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `notice`
@@ -206,7 +240,7 @@ CREATE TABLE `page_contents` (
   `page_name` varchar(20) NOT NULL,
   `page_text` text DEFAULT NULL,
   `page_image` varchar(100) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `page_contents`
@@ -236,7 +270,7 @@ CREATE TABLE `page_options` (
   `id` int(11) NOT NULL,
   `school_meta_key` varchar(55) NOT NULL,
   `school_meta_value` text DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `page_options`
@@ -264,7 +298,7 @@ CREATE TABLE `results` (
   `grade` float NOT NULL DEFAULT 0,
   `student_class` int(5) NOT NULL,
   `teacher_email` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `results`
@@ -285,7 +319,7 @@ CREATE TABLE `sections` (
   `section` varchar(20) NOT NULL,
   `group_name` varchar(30) DEFAULT NULL,
   `global_name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `sections`
@@ -322,7 +356,7 @@ CREATE TABLE `students` (
   `student_blood_group` varchar(15) DEFAULT NULL,
   `student_gender` varchar(10) DEFAULT NULL,
   `student_status` varchar(10) NOT NULL DEFAULT 'active'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `students`
@@ -343,7 +377,7 @@ INSERT INTO `students` (`id`, `student_email`, `student_name`, `student_class`, 
 CREATE TABLE `subjects` (
   `id` int(5) NOT NULL,
   `subject` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `subjects`
@@ -358,7 +392,8 @@ INSERT INTO `subjects` (`id`, `subject`) VALUES
 (32, 'Edukatë Fizike'),
 (33, 'Gjeografi'),
 (34, 'Fizikë'),
-(35, 'Gjuhë Angleze');
+(35, 'Gjuhë Angleze'),
+(36, 'development');
 
 -- --------------------------------------------------------
 
@@ -375,7 +410,7 @@ CREATE TABLE `teachers` (
   `teacher_address` text NOT NULL,
   `teacher_contact` varchar(20) NOT NULL,
   `teacher_image` varchar(255) NOT NULL DEFAULT 'default.jpg'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `teachers`
@@ -400,14 +435,14 @@ CREATE TABLE `user` (
   `user_role` varchar(30) NOT NULL,
   `user_firstname` varchar(50) DEFAULT NULL,
   `user_lastname` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `user_password`, `user_role`, `user_firstname`, `user_lastname`) VALUES
-(1, 'arbin.qazimi21@gmail.com', 'arbin123', 'administrator', 'Arbin', 'Qazimi'),
+(1, 'test@test.com', 'test', 'administrator', 'Arbin', 'Qazimi'),
 (87, 'mexhit@edu.mk', 'mexhit123', 'teacher', 'Mexhit', 'Musliu'),
 (86, 'z.selmani@edu.mk', 'zemrije123', 'teacher', 'Zemrije', 'Selmani'),
 (85, 'a.memishi@edu.mk', 'almira123', 'teacher', 'Almira', 'Memishi'),
@@ -443,6 +478,12 @@ ALTER TABLE `classtime`
 -- Indexes for table `class_teacher`
 --
 ALTER TABLE `class_teacher`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -546,6 +587,12 @@ ALTER TABLE `class_teacher`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `event`
 --
 ALTER TABLE `event`
@@ -603,7 +650,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `teachers`
